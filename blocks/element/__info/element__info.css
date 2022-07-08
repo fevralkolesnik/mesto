@@ -1,7 +1,9 @@
 .element__info {
+  width: auto;
+
+  padding: 25px 20px 30px 20px;
+
   display: flex;
   justify-content: space-between;
   align-items: baseline;
-
-  margin: 25px 20px 0 21px;
 }

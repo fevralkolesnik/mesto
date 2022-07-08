@@ -2,3 +2,15 @@
   display: flex;
   align-items: baseline;
 }
+
+@media screen and (max-width: 600px) {
+  .profile__title {
+    position: relative;
+    left: 14px;
+
+    justify-content: center;
+
+    margin: 26px auto 9px;
+  }
+}
+

@@ -18,3 +18,9 @@
 
   box-sizing: border-box;
 }
+
+@media screen and (max-width: 660px) {
+  .header {
+    min-height: 56px;
+  }
+}
