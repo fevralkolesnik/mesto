@@ -16,7 +16,7 @@
     flex-direction: column;
     align-items: flex-end;
 
-    min-height: none;
+    min-height: auto;
 
     bottom: 18px;
     left: 0;

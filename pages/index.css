@@ -42,7 +42,7 @@
 
 @import url(../blocks/input/input.css);
 @import url(../blocks/input/__text/input__text.css);
-@import url(../blocks/input/__text/_type/input__text_type_name.caa);
+@import url(../blocks/input/__text/_type/input__text_type_name.css);
 @import url(../blocks/input/__text/_type/input__text_type_description.css);
 
 @import url(../blocks/footer/footer.css);
