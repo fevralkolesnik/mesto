@@ -1,0 +1,24 @@
+.popup__window {
+  display: flex;
+  flex-direction: row-reverse;
+
+  min-height: calc(330px + 8px + 32px);
+
+  position: relative;
+  left: 20px;
+  bottom: 20px;
+
+  margin: 0 19px
+}
+
+@media screen and (max-width: 600px) {
+  .popup__window {
+    flex-direction: column;
+    align-items: flex-end;
+
+    min-height: none;
+
+    bottom: 18px;
+    left: 0;
+  }
+}
