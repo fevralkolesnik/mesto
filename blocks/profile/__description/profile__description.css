@@ -8,14 +8,14 @@
 }
 
 @media screen and (max-width: 700px) {
-  .profile__text {
+  .profile__description {
     font-weight: 400;
     font-size: 14px;
     line-height: 17px;
   }
 }
 @media screen and (max-width: 600px) {
-  .profile__text {
+  .profile__description {
     margin: 0;
 
     text-align: center;
