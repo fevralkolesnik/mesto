@@ -25,6 +25,8 @@ function editProfile() {
 
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
+
+  closeEditProfile();
 }
 
 editButton.addEventListener('click', openEditProfile);
