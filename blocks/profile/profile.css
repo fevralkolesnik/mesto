@@ -1,12 +1,19 @@
 .profile {
   width: 100%;
 
-  display: flex;
+  display: grid;
+  grid-template-columns: 120px 1fr 150px;
+  grid-template-rows: 2fr 1fr;
+  grid-column-gap: 30px;
+
   align-items: center;
 }
 
 @media screen and (max-width: 600px) {
   .profile {
-    flex-direction: column;
+    grid-template-columns: 1fr;
+    grid-template-rows: 120px auto auto 50px;
+    justify-items: center;
   }
 }
+
