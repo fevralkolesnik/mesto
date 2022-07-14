@@ -15,10 +15,10 @@
         <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар пользователя">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
-          <button class="profile__edit-button" type="button"></button>
+          <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
         </div>
         <p class="profile__description">Исследователь океана</p>
-        <button class="profile__add-button" type="button"></button>
+        <button class="profile__add-button" type="button" aria-label="Добавить публикацию"></button>
       </section>
 
       <section class="elements" aria-label="Фото">
@@ -26,57 +26,54 @@
           <img class="element__image" src="./images/ruskeala.jpg" alt="Рускеала">
           <div class="element__info">
             <h2 class="element__name">Рускеала</h2>
-            <button class="element__like"></button>
+            <button class="element__like" aria-label="Мне нравится"></button>
           </div>
         </article>
         <article class="element block" aria-label="Красноярск">
           <img class="element__image" src="./images/krasnoyarsk.jpg" alt="Красноярск">
           <div class="element__info">
             <h2 class="element__name">Красноярск</h2>
-            <button class="element__like" type="button"></button>
+            <button class="element__like" aria-label="Мне нравится"></button>
           </div>
         </article>
         <article class="element block" aria-label="Алтай">
           <img class="element__image" src="./images/altai.jpg" alt="Алтай">
           <div class="element__info">
             <h2 class="element__name">Алтай</h2>
-            <button class="element__like" type="button"></button>
+            <button class="element__like" aria-label="Мне нравится"></button>
           </div>
         </article>
         <article class="element block" aria-label="Тулиновка">
           <img class="element__image" src="./images/tulinovka.jpg" alt="Тулиновка">
           <div class="element__info">
             <h2 class="element__name">Тулиновка</h2>
-            <button class="element__like" type="button"></button>
+            <button class="element__like" aria-label="Мне нравится"></button>
           </div>
         </article>
         <article class="element block" aria-label="Камчатка">
           <img class="element__image" src="./images/kamchatka.jpg" alt="Камчатка">
           <div class="element__info">
             <h2 class="element__name">Камчатка</h2>
-            <button class="element__like" type="button"></button>
+            <button class="element__like" aria-label="Мне нравится"></button>
           </div>
         </article>
         <article class="element block" aria-label="Байкал">
           <img class="element__image" src="./images/baikal.jpg" alt="Байкал">
           <div class="element__info">
             <h2 class="element__name">Байкал</h2>
-            <button class="element__like" type="button"></button>
+            <button class="element__like" aria-label="Мне нравится"></button>
           </div>
         </article>
       </section>
 
-      <div class="popup popup_disabled" aria-label="Редактировать профиль">
-        <div class="popup__window">
-          <button class="popup__close-button" type="button"></button>
-          <div class="block form">
-            <h2 class="form__title">Редактировать профиль</h2>
-            <div class="input">
-              <input class="input__text input__text_type_name" type="text">
-              <input class="input__text input__text_type_description" type="text">
-            </div>
-            <button class="form__submit-button">Сохранить</button>
-          </div>
+      <div class="popup" aria-label="Редактировать профиль">
+        <button class="popup__close-button" type="button" aria-label="Закрыть окно редактирования профиля"></button>
+        <form class="block form" id="edit-form">
+          <h2 class="form__title">Редактировать профиль</h2>
+          <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Жак-Ив Кусто">
+          <input class="popup__input popup__input_type_description" type="text" name="description" placeholder="Исследователь океана">
+          <button class="form__submit-button" type="submit" aria-label="Отправить измнения профиля">Сохранить</button>
+        </form>
         </div>
       </div>
 

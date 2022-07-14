@@ -4,33 +4,34 @@ let popup = content.querySelector('.popup');
 let popupCloseButton = popup.querySelector('.popup__close-button');
 let profileName = document.querySelector('.profile__name');
 let profileDescription = document.querySelector('.profile__description');
-let inputName = popup.querySelector('.input__text_type_name');
-let inputDescription = popup.querySelector('.input__text_type_description');
-let submitBatton = popup.querySelector('.form__submit-button');
+let inputName = popup.querySelector('.popup__input_type_name');
+let inputDescription = popup.querySelector('.popup__input_type_description');
+
+let editForm = content.querySelector('edit-form');
 
 function openEditProfile() {
-  popup.classList.remove('popup_disabled');
+  popup.classList.add('popup_opened');
 
   inputName.value = profileName.textContent;
   inputDescription.value = profileDescription.textContent;
 }
 
 function closeEditProfile() {
-  popup.classList.add('popup_disabled');
+  popup.classList.remove('popup_opened');
 }
 
-function editProfile() {
-  inputName = document.querySelector('.input__text_type_name');
-  inputDescription = document.querySelector('.input__text_type_description');
+function editProfile(evt) {
+  evt.preventDefault();
+
+  inputName = document.querySelector('.popup__input_type_name');
+  inputDescription = document.querySelector('.popup__input_type_description');
 
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
-
-  closeEditProfile();
 }
 
 editButton.addEventListener('click', openEditProfile);
 popupCloseButton.addEventListener('click', closeEditProfile);
-submitBatton.addEventListener('click', editProfile);
+editForm.addEventListener('submit', editProfile);
 
 
