@@ -20,8 +20,8 @@ function closeEditProfile() {
   popup.classList.remove('popup_opened');
 }
 
-function editProfile(evt) {
-  evt.preventDefault();
+function editProfile(event) {
+  event.preventDefault();
 
   inputName = document.querySelector('.popup__input_type_name');
   inputDescription = document.querySelector('.popup__input_type_description');
