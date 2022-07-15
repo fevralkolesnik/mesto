@@ -1,5 +1,6 @@
-.form__submit-button {
+.popup__submit-button {
   height: 50px;
+  width: 100%;
 
   margin-top: 50px;
 
@@ -15,13 +16,13 @@
   transition: opacity 1s ease-in-out;
 }
 
-.form__submit-button:hover {
+.popup__submit-button:hover {
   opacity: 0.8;
   cursor: pointer;
 }
 
 @media screen and (max-width: 600px) {
-  .form__submit-button {
+  .popup__submit-button {
     height: 46px;
     margin-top: 45px;
 
@@ -29,3 +30,4 @@
     line-height: 17px;
   }
 }
+

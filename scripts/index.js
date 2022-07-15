@@ -7,7 +7,7 @@ let profileDescription = document.querySelector('.profile__description');
 let inputName = popup.querySelector('.popup__input_type_name');
 let inputDescription = popup.querySelector('.popup__input_type_description');
 
-let editForm = content.querySelector('edit-form');
+let editForm = content.querySelector('.popup__form');
 
 function openEditProfile() {
   popup.classList.add('popup_opened');
@@ -28,6 +28,8 @@ function editProfile(event) {
 
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
+
+  closeEditProfile();
 }
 
 editButton.addEventListener('click', openEditProfile);

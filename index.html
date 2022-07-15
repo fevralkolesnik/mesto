@@ -22,42 +22,42 @@
       </section>
 
       <section class="elements" aria-label="Фото">
-        <article class="element block" aria-label="Рускеала">
+        <article class="element" aria-label="Рускеала">
           <img class="element__image" src="./images/ruskeala.jpg" alt="Рускеала">
           <div class="element__info">
             <h2 class="element__name">Рускеала</h2>
             <button class="element__like" aria-label="Мне нравится" type="button"></button>
           </div>
         </article>
-        <article class="element block" aria-label="Красноярск">
+        <article class="element" aria-label="Красноярск">
           <img class="element__image" src="./images/krasnoyarsk.jpg" alt="Красноярск">
           <div class="element__info">
             <h2 class="element__name">Красноярск</h2>
             <button class="element__like" aria-label="Мне нравится" type="button"></button>
           </div>
         </article>
-        <article class="element block" aria-label="Алтай">
+        <article class="element" aria-label="Алтай">
           <img class="element__image" src="./images/altai.jpg" alt="Алтай">
           <div class="element__info">
             <h2 class="element__name">Алтай</h2>
             <button class="element__like" aria-label="Мне нравится" type="button"></button>
           </div>
         </article>
-        <article class="element block" aria-label="Тулиновка">
+        <article class="element" aria-label="Тулиновка">
           <img class="element__image" src="./images/tulinovka.jpg" alt="Тулиновка">
           <div class="element__info">
             <h2 class="element__name">Тулиновка</h2>
             <button class="element__like" aria-label="Мне нравится" type="button"></button>
           </div>
         </article>
-        <article class="element block" aria-label="Камчатка">
+        <article class="element" aria-label="Камчатка">
           <img class="element__image" src="./images/kamchatka.jpg" alt="Камчатка">
           <div class="element__info">
             <h2 class="element__name">Камчатка</h2>
             <button class="element__like" aria-label="Мне нравится" type="button"></button>
           </div>
         </article>
-        <article class="element block" aria-label="Байкал">
+        <article class="element" aria-label="Байкал">
           <img class="element__image" src="./images/baikal.jpg" alt="Байкал">
           <div class="element__info">
             <h2 class="element__name">Байкал</h2>
@@ -67,13 +67,15 @@
       </section>
 
       <div class="popup">
-        <form class="block form" id="edit-form" name="edit-form">
+        <div class="popup__container">
           <button class="popup__close-button" type="button" aria-label="Закрыть окно редактирования профиля"></button>
-          <h2 class="form__title">Редактировать профиль</h2>
-          <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Жак-Ив Кусто">
-          <input class="popup__input popup__input_type_description" type="text" name="description" placeholder="Исследователь океана">
-          <button class="form__submit-button" type="submit" aria-label="Отправить измнения профиля">Сохранить</button>
-        </form>
+          <h3 class="popup__title">Редактировать профиль</h3>
+          <form class="popup__form" name="edit-form">
+            <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Жак-Ив Кусто">
+            <input class="popup__input popup__input_type_description" type="text" name="description" placeholder="Исследователь океана">
+            <button class="popup__submit-button" type="submit" aria-label="Отправить измнения профиля">Сохранить</button>
+          </form>
+        </div>
       </div>
 
     </main>
