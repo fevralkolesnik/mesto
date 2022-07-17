@@ -8,8 +8,6 @@
   grid-column: 2/3;
 
   align-self: flex-end;
-
-  overflow: hidden;
 }
 
 @media screen and (max-width: 600px) {
