@@ -23,55 +23,14 @@
       </section>
 
       <section class="elements" aria-label="Фото">
-        <article class="element" aria-label="Рускеала">
-          <img class="element__image" src="./images/ruskeala.jpg" alt="Рускеала">
-          <div class="element__info">
-            <h2 class="element__name">Рускеала</h2>
-            <button class="element__like" aria-label="Мне нравится" type="button"></button>
-          </div>
-        </article>
-        <article class="element" aria-label="Красноярск">
-          <img class="element__image" src="./images/krasnoyarsk.jpg" alt="Красноярск">
-          <div class="element__info">
-            <h2 class="element__name">Красноярск</h2>
-            <button class="element__like" aria-label="Мне нравится" type="button"></button>
-          </div>
-        </article>
-        <article class="element" aria-label="Алтай">
-          <img class="element__image" src="./images/altai.jpg" alt="Алтай">
-          <div class="element__info">
-            <h2 class="element__name">Алтай</h2>
-            <button class="element__like" aria-label="Мне нравится" type="button"></button>
-          </div>
-        </article>
-        <article class="element" aria-label="Тулиновка">
-          <img class="element__image" src="./images/tulinovka.jpg" alt="Тулиновка">
-          <div class="element__info">
-            <h2 class="element__name">Тулиновка</h2>
-            <button class="element__like" aria-label="Мне нравится" type="button"></button>
-          </div>
-        </article>
-        <article class="element" aria-label="Камчатка">
-          <img class="element__image" src="./images/kamchatka.jpg" alt="Камчатка">
-          <div class="element__info">
-            <h2 class="element__name">Камчатка</h2>
-            <button class="element__like" aria-label="Мне нравится" type="button"></button>
-          </div>
-        </article>
-        <article class="element" aria-label="Байкал">
-          <img class="element__image" src="./images/baikal.jpg" alt="Байкал">
-          <div class="element__info">
-            <h2 class="element__name">Байкал</h2>
-            <button class="element__like" aria-label="Мне нравится" type="button"></button>
-          </div>
-        </article>
+
       </section>
 
-      <div class="popup">
+      <div class="popup popup_type_edit-profile">
         <div class="popup__container">
-          <button class="popup__close-button" type="button" aria-label="Закрыть окно редактирования профиля"></button>
+          <button class="popup__close-button popup__close-button_type_edit-profile" type="button" aria-label="Закрыть окно редактирования профиля"></button>
           <h3 class="popup__title">Редактировать профиль</h3>
-          <form class="popup__form" name="edit-form">
+          <form class="popup__form popup__form_type_edit-profile" name="edit-form">
             <input class="popup__input popup__input_type_name" type="text" name="name" placeholder="Жак-Ив Кусто">
             <input class="popup__input popup__input_type_description" type="text" name="description" placeholder="Исследователь океана">
             <button class="popup__submit-button" type="submit" aria-label="Отправить измнения профиля">Сохранить</button>
@@ -79,10 +38,34 @@
         </div>
       </div>
 
+    <div class="popup popup_type_add-card">
+        <div class="popup__container">
+          <button class="popup__close-button popup__close-button_type_add-card" type="button" aria-label="Закрыть окно создания карточки"></button>
+          <h3 class="popup__title">Новое место</h3>
+          <form class="popup__form popup__form_type_add-card" name="add-form">
+            <input class="popup__input popup__input_type_place" type="text" name="name" placeholder="Название">
+            <input class="popup__input popup__input_type_image" type="text" name="description" placeholder="Ссылка на картинку">
+            <button class="popup__submit-button" type="submit" aria-label="Отправить новая карточка">Создать</button>
+          </form>
+        </div>
+      </div>
+
     </main>
+
     <footer class="footer page__footer">
       <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
     </footer>
+
+    <template id="element">
+      <article class="element">
+        <img class="element__image">
+        <div class="element__info">
+          <h2 class="element__name"></h2>
+          <button class="element__like" aria-label="Мне нравится" type="button"></button>
+        </div>
+        <button class="element__delete-button" type="button" aria-label="Удалить карточку"></button>
+      </article>
+    </template>
 
     <script src="./scripts/index.js"></script>
   </body>
