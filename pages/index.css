@@ -22,6 +22,7 @@
 
 @import url(../blocks/elements/elements.css);
 @import url(../blocks/element/element.css);
+@import url(../blocks/element/__square/element__square.css);
 @import url(../blocks/element/__image/element__image.css);
 @import url(../blocks/element/__info/element__info.css);
 @import url(../blocks/element/__name/element__name.css);
@@ -48,3 +49,31 @@
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
+
+.popup__container_type_image-view {
+
+  margin: 0 19px;
+
+  position: relative;
+}
+
+
+.popup__card-name {
+  position: absolute;
+  left: 0;
+  bottom: -20px;
+
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 15px;
+  color: #FFFFFF;
+
+  margin: 0;
+  padding: 0;
+}
+
+.popup__card-image {
+  max-width: 75vw;
+  max-height: 75vh;
+  object-fit: cover;
+}

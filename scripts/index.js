@@ -1,27 +1,54 @@
+// const initialCards = [
+//   {
+//     name: 'Рускеала',
+//     link: '../images/ruskeala.jpg'
+//   },
+//   {
+//     name: 'Красноярск',
+//     link: '../images/krasnoyarsk.jpg'
+//   },
+//   {
+//     name: 'Алтай',
+//     link: '../images/altai.jpg'
+//   },
+//   {
+//     name: 'Тулиновка',
+//     link: '../images/tulinovka.jpg'
+//   },
+//   {
+//     name: 'Камчатка',
+//     link: '../images/kamchatka.jpg'
+//   },
+//   {
+//     name: 'Байкал',
+//     link: '../images/baikal.jpg'
+//   }
+// ];
+
 const initialCards = [
   {
-    name: 'Рускеала',
-    link: '../images/ruskeala.jpg'
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
   },
   {
-    name: 'Красноярск',
-    link: '../images/krasnoyarsk.jpg'
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
   },
   {
-    name: 'Алтай',
-    link: '../images/altai.jpg'
-  },
-  {
-    name: 'Тулиновка',
-    link: '../images/tulinovka.jpg'
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
   },
   {
     name: 'Камчатка',
-    link: '../images/kamchatka.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
   },
   {
     name: 'Байкал',
-    link: '../images/baikal.jpg'
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
 
@@ -31,8 +58,10 @@ const selectors = {
   profileDescription: '.profile__description',
   popupEditProfile: '.popup_type_edit-profile',
   popupAddCard: '.popup_type_add-card',
+  popupImageView: '.popup_type_image-view',
   popupCloseButtonEditProfile: '.popup__close-button_type_edit-profile',
   popupCloseButtonAddCard: '.popup__close-button_type_add-card',
+  popupCloseButtonImageView: '.popup__close-button_type_image-view',
   editForm: '.popup__form_type_edit-profile',
   addCardForm: '.popup__form_type_add-card',
   inputName: '.popup__input_type_name',
@@ -53,15 +82,17 @@ const selectors = {
 const content = document.querySelector(selectors.content);
 const profileName = content.querySelector(selectors.profileName);
 const profileDescription = content.querySelector(selectors.profileDescription);
-
 const popupEditProfile = content.querySelector(selectors.popupEditProfile);
 const popupAddCard = content.querySelector(selectors.popupAddCard);
+const popupImageView = content.querySelector(selectors.popupImageView);
+
 const popupCloseButtonEditProfile = popupEditProfile.querySelector(selectors.popupCloseButtonEditProfile);
 const popupCloseButtonAddCard = popupAddCard.querySelector(selectors.popupCloseButtonAddCard);
+const popupCloseButtonImageView = popupImageView.querySelector(selectors.popupCloseButtonImageView);
 const editForm = content.querySelector(selectors.editForm);
 const addCardForm = content.querySelector(selectors.addCardForm);
-let inputName = document.querySelector(selectors.inputName);
-let inputDescription = document.querySelector(selectors.inputDescription);
+let inputName = content.querySelector(selectors.inputName);
+let inputDescription = content.querySelector(selectors.inputDescription);
 
 const cardsConteiner = content.querySelector(selectors.cardsConteiner);
 const cardTemplate = document.querySelector(selectors.cardTemplate).content;
@@ -69,14 +100,20 @@ const cardTemplate = document.querySelector(selectors.cardTemplate).content;
 const editButton = content.querySelector(selectors.editButton);
 const addCardButton = content.querySelector(selectors.addCardButton);
 
+const popupImageLink = document.querySelector('.popup__card-image');
+const popupImageName = document.querySelector('.popup__card-name');
 
-
-function openEditProfile(popupType) {
+function openEditProfile(popupType, link = '', name = '') {
   popupType.classList.add('popup_opened');
 
   if (popupType === popupEditProfile) {
     inputName.value = profileName.textContent;
     inputDescription.value = profileDescription.textContent;
+  }
+
+  if (popupType === popupImage) {
+    popupImageLink.src = link;
+    popupImageName.textContent = name;
   }
 }
 editButton.addEventListener('click', () => openEditProfile(popupEditProfile));
@@ -87,6 +124,7 @@ function closeEditProfile(popupType) {
 }
 popupCloseButtonEditProfile.addEventListener('click', () => closeEditProfile(popupEditProfile));
 popupCloseButtonAddCard.addEventListener('click', () => closeEditProfile(popupAddCard));
+popupCloseButtonImageView.addEventListener('click', () => closeEditProfile(popupImageView));
 
 
 function editProfile(evt) {
@@ -113,6 +151,10 @@ function addCard(evt) {
   }
 
   renderCard(card);
+
+  inputPlaceName.value = '';
+  inputImage.value = '';
+
   closeEditProfile(popupAddCard);
 }
 addCardForm.addEventListener('submit', addCard);
@@ -127,13 +169,16 @@ function createCard(link, name) {
   const cardButtonDelete = card.querySelector(selectors.cardButtonDelete);
 
   cardImage.src = link;
+  cardImage.alt = name;
   cardName.textContent = name;
   cardButtonLike.addEventListener('click', () => cardButtonLike.classList.toggle('element__like_active'));
   cardButtonDelete.addEventListener('click', () => card.remove());
+  cardImage.addEventListener('click', () => {
+    openEditProfile(popupImage, link, name);
+  });
 
   return card;
 }
-
 
 function renderCard (item) {
   let newCard = createCard(item.link, item.name);
