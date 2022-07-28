@@ -16,12 +16,12 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
   },
   {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+    name: 'Горный Алтай',
+    link: '../images/gorniyaltay.png'
   },
   {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+    name: 'Карачаево-Черкессия',
+    link: '../images/karachaevsk.png'
   }
 ];
 
@@ -94,7 +94,7 @@ function popupImage (link, name) {
   popupImageLink.src = link;
   popupImageName.textContent = name;
 
-  openPopup(popupAddCard);
+  openPopup(popupImageView);
 }
 
 
