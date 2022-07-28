@@ -111,7 +111,7 @@ function openEditProfile(popupType, link = '', name = '') {
     inputDescription.value = profileDescription.textContent;
   }
 
-  if (popupType === popupImage) {
+  if (popupType === popupImageView) {
     popupImageLink.src = link;
     popupImageName.textContent = name;
   }
@@ -174,7 +174,7 @@ function createCard(link, name) {
   cardButtonLike.addEventListener('click', () => cardButtonLike.classList.toggle('element__like_active'));
   cardButtonDelete.addEventListener('click', () => card.remove());
   cardImage.addEventListener('click', () => {
-    openEditProfile(popupImage, link, name);
+    openEditProfile(popupImageView, link, name);
   });
 
   return card;
