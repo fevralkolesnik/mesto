@@ -1,30 +1,3 @@
-// const initialCards = [
-//   {
-//     name: 'Рускеала',
-//     link: '../images/ruskeala.jpg'
-//   },
-//   {
-//     name: 'Красноярск',
-//     link: '../images/krasnoyarsk.jpg'
-//   },
-//   {
-//     name: 'Алтай',
-//     link: '../images/altai.jpg'
-//   },
-//   {
-//     name: 'Тулиновка',
-//     link: '../images/tulinovka.jpg'
-//   },
-//   {
-//     name: 'Камчатка',
-//     link: '../images/kamchatka.jpg'
-//   },
-//   {
-//     name: 'Байкал',
-//     link: '../images/baikal.jpg'
-//   }
-// ];
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -76,7 +49,9 @@ const selectors = {
   cardButtonLike: '.element__like',
   cardButtonDelete: '.element__delete-button',
   editButton: '.profile__edit-button',
-  addCardButton: '.profile__add-button'
+  addCardButton: '.profile__add-button',
+  popupImageLink: '.popup__image',
+  popupImageName: '.popup__image-name'
 }
 
 const content = document.querySelector(selectors.content);
@@ -100,31 +75,45 @@ const cardTemplate = document.querySelector(selectors.cardTemplate).content;
 const editButton = content.querySelector(selectors.editButton);
 const addCardButton = content.querySelector(selectors.addCardButton);
 
-const popupImageLink = document.querySelector('.popup__card-image');
-const popupImageName = document.querySelector('.popup__card-name');
 
-function openEditProfile(popupType, link = '', name = '') {
-  popupType.classList.add('popup_opened');
+function popupEdit () {
+  inputName.value = profileName.textContent;
+  inputDescription.value = profileDescription.textContent;
 
-  if (popupType === popupEditProfile) {
-    inputName.value = profileName.textContent;
-    inputDescription.value = profileDescription.textContent;
-  }
-
-  if (popupType === popupImageView) {
-    popupImageLink.src = link;
-    popupImageName.textContent = name;
-  }
+  openPopup(popupEditProfile);
 }
-editButton.addEventListener('click', () => openEditProfile(popupEditProfile));
-addCardButton.addEventListener('click', () => openEditProfile(popupAddCard));
 
-function closeEditProfile(popupType) {
+function popupAdd () {
+  openPopup(popupAddCard);
+}
+
+function popupImage (link, name) {
+  const popupImageLink = popupImageView.querySelector(selectors.popupImageLink);
+  const popupImageName = popupImageView.querySelector(selectors.popupImageName);
+
+  popupImageLink.src = link;
+  popupImageName.textContent = name;
+
+  openPopup(popupAddCard);
+}
+
+
+
+function openPopup(popupType) {
+  popupType.classList.add('popup_opened');
+}
+
+function closePopup(popupType) {
   popupType.classList.remove('popup_opened');
 }
-popupCloseButtonEditProfile.addEventListener('click', () => closeEditProfile(popupEditProfile));
-popupCloseButtonAddCard.addEventListener('click', () => closeEditProfile(popupAddCard));
-popupCloseButtonImageView.addEventListener('click', () => closeEditProfile(popupImageView));
+
+
+
+editButton.addEventListener('click', popupEdit);
+addCardButton.addEventListener('click', popupAdd);
+popupCloseButtonEditProfile.addEventListener('click', () => closePopup(popupEditProfile));
+popupCloseButtonAddCard.addEventListener('click', () => closePopup(popupAddCard));
+popupCloseButtonImageView.addEventListener('click', () => closePopup(popupImageView));
 
 
 function editProfile(evt) {
@@ -136,7 +125,7 @@ function editProfile(evt) {
   profileName.textContent = inputName.value;
   profileDescription.textContent = inputDescription.value;
 
-  closeEditProfile(popupEditProfile);
+  closePopup(popupEditProfile);
 }
 editForm.addEventListener('submit', editProfile);
 
@@ -155,7 +144,7 @@ function addCard(evt) {
   inputPlaceName.value = '';
   inputImage.value = '';
 
-  closeEditProfile(popupAddCard);
+  closePopup(popupAddCard);
 }
 addCardForm.addEventListener('submit', addCard);
 
@@ -174,7 +163,7 @@ function createCard(link, name) {
   cardButtonLike.addEventListener('click', () => cardButtonLike.classList.toggle('element__like_active'));
   cardButtonDelete.addEventListener('click', () => card.remove());
   cardImage.addEventListener('click', () => {
-    openEditProfile(popupImageView, link, name);
+    popupImage(link, name);
   });
 
   return card;

@@ -35,6 +35,9 @@
 @import url(../blocks/popup/_type/popup_type_edit-profile.css);
 @import url(../blocks/popup/_type/popup_type_add-card.css);
 @import url(../blocks/popup/__container/popup__container.css);
+@import url(../blocks/popup/__image-container/popup__image-container.css);
+@import url(../blocks/popup/__image-name/popup__image-name.css);
+@import url(../blocks/popup/__image/popup__image.css);
 @import url(../blocks/popup/__close-button/popup__close-button.css);
 @import url(../blocks/popup/__close-button/_type/popup__close-button_type_edit-profile.css);
 @import url(../blocks/popup/__close-button/_type/popup__close-button_type_add-card.css);
@@ -49,31 +52,3 @@
 
 @import url(../blocks/footer/footer.css);
 @import url(../blocks/footer/__copyright/footer__copyright.css);
-
-.popup__container_type_image-view {
-
-  margin: 0 19px;
-
-  position: relative;
-}
-
-
-.popup__card-name {
-  position: absolute;
-  left: 0;
-  bottom: -20px;
-
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 15px;
-  color: #FFFFFF;
-
-  margin: 0;
-  padding: 0;
-}
-
-.popup__card-image {
-  max-width: 75vw;
-  max-height: 75vh;
-  object-fit: cover;
-}
