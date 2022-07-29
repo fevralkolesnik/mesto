@@ -13,6 +13,6 @@
   position: fixed;
 
   opacity: 0.2;
-  transition: opacity 0.5s linear, left 0s linear 0.6s;
+  transition: opacity 0.2s linear, left 0s linear 0.3s;
 }
 
