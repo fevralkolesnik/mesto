@@ -29,18 +29,22 @@ const selectors = {
   content: '.content',
   profileName: '.profile__name',
   profileDescription: '.profile__description',
+  buttonEdit: '.profile__edit-button',
   popupEditProfile: '.popup_type_edit-profile',
-  popupAddCard: '.popup_type_add-card',
-  popupImageView: '.popup_type_image-view',
-  popupCloseButtonEditProfile: '.popup__close-button_type_edit-profile',
-  popupCloseButtonAddCard: '.popup__close-button_type_add-card',
-  popupCloseButtonImageView: '.popup__close-button_type_image-view',
   formEditProfile: '.popup__form_type_edit-profile',
-  formAddCard: '.popup__form_type_add-card',
   formInputName: '.popup__input_type_name',
   formInputDescription: '.popup__input_type_description',
-  formInputImageLink: '.popup__input_type_image',
+  popupCloseButtonEditProfile: '.popup__close-button_type_edit-profile',
+  buttonAddCard: '.profile__add-button',
+  popupAddCard: '.popup_type_add-card',
+  formAddCard: '.popup__form_type_add-card',
   formInputPlaceName: '.popup__input_type_place',
+  formInputImageLink: '.popup__input_type_image',
+  popupCloseButtonAddCard: '.popup__close-button_type_add-card',
+  popupImageView: '.popup_type_image-view',
+  popupImageLink: '.popup__image',
+  popupImageName: '.popup__image-name',
+  popupCloseButtonImageView: '.popup__close-button_type_image-view',
   cardsConteiner: '.elements',
   cardTemplate: '#element',
   card: '.element',
@@ -48,37 +52,35 @@ const selectors = {
   cardImage: '.element__image',
   cardButtonLike: '.element__like',
   cardButtonDelete: '.element__delete-button',
-  buttonEdit: '.profile__edit-button',
-  buttonAddCard: '.profile__add-button',
-  popupImageLink: '.popup__image',
-  popupImageName: '.popup__image-name'
 }
 
 const content = document.querySelector(selectors.content);
+
 const profileName = content.querySelector(selectors.profileName);
 const profileDescription = content.querySelector(selectors.profileDescription);
-const popupEditProfile = document.querySelector(selectors.popupEditProfile);
-const popupAddCard = document.querySelector(selectors.popupAddCard);
-const popupImageView = document.querySelector(selectors.popupImageView);
 
+const buttonEdit = content.querySelector(selectors.buttonEdit);
+const popupEditProfile = document.querySelector(selectors.popupEditProfile);
+const formEditProfile = popupEditProfile.querySelector(selectors.formEditProfile);
+const formInputName = formEditProfile.querySelector(selectors.formInputName);
+const formInputDescription = formEditProfile.querySelector(selectors.formInputDescription);
 const popupCloseButtonEditProfile = popupEditProfile.querySelector(selectors.popupCloseButtonEditProfile);
+
+const buttonAddCard = content.querySelector(selectors.buttonAddCard);
+const popupAddCard = document.querySelector(selectors.popupAddCard);
+const formAddCard = popupAddCard.querySelector(selectors.formAddCard);
+const formInputPlaceName = formAddCard.querySelector(selectors.formInputPlaceName);
+const formInputImageLink = formAddCard.querySelector(selectors.formInputImageLink);
 const popupCloseButtonAddCard = popupAddCard.querySelector(selectors.popupCloseButtonAddCard);
+
+const popupImageView = document.querySelector(selectors.popupImageView);
+const popupImageLink = popupImageView.querySelector(selectors.popupImageLink);
+const popupImageName = popupImageView.querySelector(selectors.popupImageName);
 const popupCloseButtonImageView = popupImageView.querySelector(selectors.popupCloseButtonImageView);
-const formEditProfile = content.querySelector(selectors.editForm);
-const formAddCard = content.querySelector(selectors.addCardForm);
-const formInputName = document.querySelector(selectors.formInputName);
-const formInputDescription = document.querySelector(selectors.formInputDescription);
-const formInputPlaceName = popupAddCard.querySelector(selectors.formInputPlaceName);
-const formInputImageLink = popupAddCard.querySelector(selectors.formInputImageLink);
 
 const cardsConteiner = document.querySelector(selectors.cardsConteiner);
 const cardTemplate = document.querySelector(selectors.cardTemplate).content;
 
-const buttonEdit = content.querySelector(selectors.buttonEdit);
-const buttonAddCard = content.querySelector(selectors.buttonAddCard);
-
-const popupImageLink = popupImageView.querySelector(selectors.popupImageLink);
-const popupImageName = popupImageView.querySelector(selectors.popupImageName);
 
 
 function editPopup () {
@@ -127,7 +129,7 @@ function editProfile(evt) {
 
   closePopup(popupEditProfile);
 }
-editForm.addEventListener('submit', editProfile);
+formEditProfile.addEventListener('submit', editProfile);
 
 function addCard(evt) {
   evt.preventDefault();
@@ -150,7 +152,7 @@ function addCard(evt) {
 
   closePopup(popupAddCard);
 }
-addCardForm.addEventListener('submit', addCard);
+formAddCard.addEventListener('submit', addCard);
 
 
 function createCard(link, name) {
