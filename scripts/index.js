@@ -88,10 +88,12 @@ function editPopup () {
   formInputDescription.value = profileDescription.textContent;
 
   openPopup(popupEditProfile);
+  closePopupEsc(popupEditProfile);
 }
 
 function addCardPopup () {
   openPopup(popupAddCard);
+  closePopupEsc(popupAddCard);
 }
 
 function showImagePopup (link, name) {
@@ -100,6 +102,7 @@ function showImagePopup (link, name) {
   popupImageName.textContent = name;
 
   openPopup(popupImageView);
+  closePopupEsc(popupImageView);
 }
 
 
@@ -110,15 +113,35 @@ function openPopup(popupType) {
 
 function closePopup(popupType) {
   popupType.classList.remove('popup_opened');
+
+}
+
+function closePopupEsc (popupName) {
+  document.addEventListener('keydown', (evt) => {
+    if (evt.key === 'Escape') {
+      closePopup(popupName);
+    }
+  });
+}
+
+function closePopupOverlay (evt, popupName) {
+  if (evt.target === evt.currentTarget) {
+    closePopup(popupName);
+  }
 }
 
 
 
 buttonEdit.addEventListener('click', editPopup);
 buttonAddCard.addEventListener('click', addCardPopup);
+
 popupCloseButtonEditProfile.addEventListener('click', () => closePopup(popupEditProfile));
 popupCloseButtonAddCard.addEventListener('click', () => closePopup(popupAddCard));
 popupCloseButtonImageView.addEventListener('click', () => closePopup(popupImageView));
+
+popupEditProfile.addEventListener('click', (evt) => closePopupOverlay(evt, popupEditProfile));
+popupAddCard.addEventListener('click', (evt) => closePopupOverlay(evt, popupAddCard));
+popupImageView.addEventListener('click', (evt) => closePopupOverlay(evt, popupImageView));
 
 
 function editProfile(evt) {
@@ -133,12 +156,6 @@ formEditProfile.addEventListener('submit', editProfile);
 
 function addCard(evt) {
   evt.preventDefault();
-
-  if (!formInputPlaceName.value || !formInputImageLink.value) {
-    alert('Нельзя вставить пустую карточку');
-
-    return 0;
-  }
 
   const card = {
     name: formInputPlaceName.value,
