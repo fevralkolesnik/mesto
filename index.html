@@ -57,7 +57,8 @@
             name="description"
             id="profileDescription"
             placeholder="О себе"
-            required minlength="2"
+            required
+            minlength="2"
             maxlength="200">
             <span class="popup__input-error profileDescription-error"></span>
           </label>
@@ -109,7 +110,7 @@
       </div>
     </div>
 
-    <template id="element">
+    <template id="template-element">
       <article class="element">
         <div class="element__square">
           <img class="element__image">
@@ -122,7 +123,7 @@
       </article>
     </template>
 
-    <script src="./scripts/index.js"></script>
     <script src="./scripts/validate.js"></script>
+    <script src="./scripts/index.js"></script>
   </body>
 </html>

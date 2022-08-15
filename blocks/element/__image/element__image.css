@@ -6,6 +6,8 @@
   height: 100%;
 
   object-fit: cover;
+
+  background-color: black;
 }
 
 .element__image:hover {
