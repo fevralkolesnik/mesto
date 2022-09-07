@@ -1,3 +1,6 @@
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+
 const initialCards = [
   {
     name: 'Архыз',
@@ -24,15 +27,6 @@ const initialCards = [
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__submit-button',
-  inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  spanErrorActive: 'popup__input-error_active'
-});
 
 const selectors = {
   content: '.content',
@@ -62,6 +56,13 @@ const selectors = {
   cardButtonDelete: '.element__delete-button',
 
   Esc: 'Escape',
+
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__submit-button',
+  inactiveButtonClass: 'popup__submit-button_disabled',
+  inputErrorClass: 'popup__input_type_error',
+  spanErrorActive: 'popup__input-error_active'
 }
 
 const content = document.querySelector(selectors.content);
@@ -82,11 +83,8 @@ const popupAddCardNameInput = popupFormAddCard.querySelector(selectors.popupAddC
 const popupAddCardLinkInput = popupFormAddCard.querySelector(selectors.popupAddCardLinkInput);
 
 const popupImageView = document.querySelector(selectors.popupImageView);
-const popupImageLink = popupImageView.querySelector(selectors.popupImageLink);
-const popupImageName = popupImageView.querySelector(selectors.popupImageName);
 
 const cardsConteiner = document.querySelector(selectors.cardsConteiner);
-const cardTemplate = document.querySelector(selectors.cardTemplate).content;
 
 
 
@@ -103,15 +101,6 @@ function openAddCardPopup () {
   addEscListener(popupAddCard);
 }
 
-function showImagePopup (link, name) {
-  popupImageLink.src = link;
-  popupImageLink.alt = name;
-  popupImageName.textContent = name;
-
-  openPopup(popupImageView);
-  addEscListener(popupImageView);
-}
-
 
 
 function openPopup(popupName) {
@@ -123,7 +112,6 @@ function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
   removeEscListener();
 }
-
 
 function closePopupOnEsc (evt) {
   if (evt.key === selectors.Esc) {
@@ -139,6 +127,7 @@ function addEscListener () {
 function removeEscListener () {
   document.removeEventListener('keydown', closePopupOnEsc);
 }
+
 
 
 function closePopupOnClick (evt, popupName) {
@@ -168,6 +157,8 @@ function editProfile(evt) {
 }
 popupFormEditProfile.addEventListener('submit', editProfile);
 
+
+
 function addCard(evt) {
   evt.preventDefault();
 
@@ -190,28 +181,8 @@ function addCard(evt) {
 popupFormAddCard.addEventListener('submit', addCard);
 
 
-function createCard(link, name) {
-  const card = cardTemplate.querySelector(selectors.card).cloneNode(true);
-
-  const cardName = card.querySelector(selectors.cardName)
-  const cardImage = card.querySelector(selectors.cardImage);
-  const cardButtonLike = card.querySelector(selectors.cardButtonLike);
-  const cardButtonDelete = card.querySelector(selectors.cardButtonDelete);
-
-  cardImage.src = link;
-  cardImage.alt = name;
-  cardName.textContent = name;
-  cardButtonLike.addEventListener('click', () => cardButtonLike.classList.toggle('element__like_active'));
-  cardButtonDelete.addEventListener('click', () => card.remove());
-  cardImage.addEventListener('click', () => {
-    showImagePopup(link, name);
-  });
-
-  return card;
-}
-
 function renderCard (item) {
-  const newCard = createCard(item.link, item.name);
+  const newCard = new Card(item.link, item.name, selectors, openPopup, addEscListener).generateCard();
   cardsConteiner.prepend(newCard);
 }
 
@@ -219,5 +190,12 @@ function renderCard (item) {
 function addInitialCards() {
   initialCards.forEach(renderCard);
 }
-
 addInitialCards();
+
+function renderValidation() {
+  const formList = Array.from(document.querySelectorAll(selectors.formSelector));
+  formList.forEach((formElement) => {
+    const newFormValidation = new FormValidator(selectors, formElement).enableValidation();
+  });
+}
+renderValidation()
