@@ -8,13 +8,11 @@ export class FormValidator {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._selectors.inputErrorClass);
     errorElement.textContent = errorMessage;
-    errorElement.classList.add(this._selectors.spanErrorActive);
   }
 
   _hideInputError (inputElement) {
     const errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.remove(this._selectors.inputErrorClass);
-    errorElement.classList.remove(this._selectors.spanErrorActive);
     errorElement.textContent = '';
   }
 

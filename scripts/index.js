@@ -62,8 +62,7 @@ const selectors = {
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__submit-button',
   inactiveButtonClass: 'popup__submit-button_disabled',
-  inputErrorClass: 'popup__input_type_error',
-  spanErrorActive: 'popup__input-error_active'
+  inputErrorClass: 'popup__input_type_error'
 }
 
 const content = document.querySelector(selectors.content);
