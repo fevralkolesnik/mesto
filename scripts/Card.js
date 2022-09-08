@@ -1,10 +1,9 @@
 export class Card {
-  constructor(link, name, selectors, openPopup, addEscListener) {
+  constructor(link, name, selectors, showImagePopup) {
     this._name = name;
     this._link = link;
     this._selectors = selectors;
-    this._openPopup = openPopup;
-    this._addEscListener = addEscListener;
+    this._showImagePopup = showImagePopup;
   }
 
   _getTemplate() {
@@ -17,30 +16,25 @@ export class Card {
     return cardElement;
   }
 
-  _showImagePopup() {
-    const popupImageView = document.querySelector(this._selectors.popupImageView);
-    const popupImageLink = popupImageView.querySelector(this._selectors.popupImageLink);
-    const popupImageName = popupImageView.querySelector(this._selectors.popupImageName);
-
-    popupImageLink.src = this._link;
-    popupImageLink.alt = this._name;
-    popupImageName.textContent = this._name;
-
-    this._openPopup(popupImageView);
-    this._addEscListener(popupImageView);
+  _handleButtonLike() {
+    this.classList.toggle('element__like_active');
   }
+
+  _handleButtonDelete() {
+    this._card.remove();
+    this._card = null;
+  }
+
 
   _setEventListeners() {
     this._buttonLike = this._card.querySelector(this._selectors.cardButtonLike);
-    this._buttonLike.addEventListener('click', () =>
-      this._buttonLike.classList.toggle('element__like_active'));
+    this._buttonLike.addEventListener('click', this._handleButtonLike);
 
     this._buttonDelete = this._card.querySelector(this._selectors.cardButtonDelete);
-    this._buttonDelete.addEventListener('click', () => this._card.remove());
+    this._buttonDelete.addEventListener('click', () => this._handleButtonDelete());
 
-    this._card.querySelector(this._selectors.cardImage).addEventListener('click', () => {
-      this._showImagePopup();
-    });
+
+    this._card.querySelector(this._selectors.cardImage).addEventListener('click', () => this._showImagePopup(this._link, this._name));
   }
 
   generateCard() {

@@ -30,6 +30,7 @@ const initialCards = [
 
 const selectors = {
   content: '.content',
+  popup: '.popup',
   profileName: '.profile__name',
   profileDescription: '.profile__description',
   buttonEdit: '.profile__edit-button',
@@ -45,7 +46,7 @@ const selectors = {
   popupImageView: '.popup_type_image-view',
   popupImageLink: '.popup__image',
   popupImageName: '.popup__image-name',
-  popupCloseButton: '.popup__close-button',
+  popupCloseButton: 'popup__close-button',
   popupSubmitButton: '.popup__submit-button',
   cardsConteiner: '.elements',
   cardTemplate: '#template-element',
@@ -83,6 +84,8 @@ const popupAddCardNameInput = popupFormAddCard.querySelector(selectors.popupAddC
 const popupAddCardLinkInput = popupFormAddCard.querySelector(selectors.popupAddCardLinkInput);
 
 const popupImageView = document.querySelector(selectors.popupImageView);
+const popupImageLink = popupImageView.querySelector(selectors.popupImageLink);
+const popupImageName = popupImageView.querySelector(selectors.popupImageName);
 
 const cardsConteiner = document.querySelector(selectors.cardsConteiner);
 
@@ -93,24 +96,30 @@ function openEditPopup () {
   popupEditProfileDescriptionInput.value = profileDescription.textContent;
 
   openPopup(popupEditProfile);
-  addEscListener(popupEditProfile);
 }
 
 function openAddCardPopup () {
   openPopup(popupAddCard);
-  addEscListener(popupAddCard);
+}
+
+function showImagePopup (link, name) {
+  popupImageLink.src = link;
+  popupImageLink.alt = name;
+  popupImageName.textContent = name;
+
+  openPopup(popupImageView);
 }
 
 
 
 function openPopup(popupName) {
   popupName.classList.add('popup_opened');
-  addEscListener();
+  document.addEventListener('keydown', closePopupOnEsc);
 }
 
 function closePopup(popupName) {
   popupName.classList.remove('popup_opened');
-  removeEscListener();
+  document.removeEventListener('keydown', closePopupOnEsc);
 }
 
 function closePopupOnEsc (evt) {
@@ -120,19 +129,9 @@ function closePopupOnEsc (evt) {
   }
 }
 
-function addEscListener () {
-  document.addEventListener('keydown', closePopupOnEsc);
-}
-
-function removeEscListener () {
-  document.removeEventListener('keydown', closePopupOnEsc);
-}
-
-
 
 function closePopupOnClick (evt, popupName) {
-  const closeButton = popupName.querySelector(selectors.popupCloseButton);
-  if (evt.target === evt.currentTarget || evt.target === closeButton) {
+  if (evt.target === evt.currentTarget || evt.target.classList.contains(selectors.popupCloseButton)) {
     closePopup(popupName);
   }
 }
@@ -142,9 +141,10 @@ function closePopupOnClick (evt, popupName) {
 buttonEdit.addEventListener('click', openEditPopup);
 buttonAddCard.addEventListener('click', openAddCardPopup);
 
-popupEditProfile.addEventListener('click', (evt) => closePopupOnClick(evt, popupEditProfile));
-popupAddCard.addEventListener('click', (evt) => closePopupOnClick(evt, popupAddCard));
-popupImageView.addEventListener('click', (evt) => closePopupOnClick(evt, popupImageView));
+
+document.querySelectorAll(selectors.popup).forEach(popup => {
+  popup.addEventListener('click', (evt) => closePopupOnClick(evt, popup));
+});
 
 
 function editProfile(evt) {
@@ -171,19 +171,22 @@ function addCard(evt) {
 
   popupFormAddCard.reset();
 
-  const buttonSubmit = popupFormAddCard.querySelector(selectors.popupSubmitButton);
-
-  buttonSubmit.classList.add('popup__submit-button_disabled');
-  buttonSubmit.setAttribute('disabled', true);
+  newCardValidation.toggleButtonState();
 
   closePopup(popupAddCard);
 }
 popupFormAddCard.addEventListener('submit', addCard);
 
 
+function createCard (item) {
+  const newCard = new Card(item.link, item.name, selectors, showImagePopup).generateCard();
+
+  return newCard;
+}
+
 function renderCard (item) {
-  const newCard = new Card(item.link, item.name, selectors, openPopup, addEscListener).generateCard();
-  cardsConteiner.prepend(newCard);
+  const newCardElement = createCard (item);
+  cardsConteiner.prepend(newCardElement);
 }
 
 
@@ -192,10 +195,8 @@ function addInitialCards() {
 }
 addInitialCards();
 
-function renderValidation() {
-  const formList = Array.from(document.querySelectorAll(selectors.formSelector));
-  formList.forEach((formElement) => {
-    const newFormValidation = new FormValidator(selectors, formElement).enableValidation();
-  });
-}
-renderValidation()
+
+const profileValidation = new FormValidator(selectors, popupFormEditProfile);
+const newCardValidation = new FormValidator(selectors, popupFormAddCard);
+profileValidation.enableValidation();
+newCardValidation.enableValidation();
