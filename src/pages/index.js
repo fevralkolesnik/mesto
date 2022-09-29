@@ -1,20 +1,20 @@
 import '../pages/index.css'
 
-import {Card} from './Card.js';
-import {FormValidator} from './FormValidator.js';
+import {Card} from '../components/Card.js';
+import {FormValidator} from '../components/FormValidator.js';
 import {selectors, initialCards,
-  popupEditProfileNameInput, popupEditProfileDescriptionInput,
   popupFormEditProfile, popupFormAddCard,
-  buttonEdit, buttonAddCard } from './constants.js';
-import { Section } from './Section.js';
-import { PopupWithImage } from './PopupWithImage.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import { UserInfo } from './UserInfo.js';
+  buttonEdit, buttonAddCard } from '../components/constants.js';
+import { Section } from '../components/Section.js';
+import { PopupWithImage } from '../components/PopupWithImage.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import { UserInfo } from '../components/UserInfo.js';
 
 function createCard (item) {
   const newCard = new Card({
     link: item.link,
     name: item.name,
+    selectors: selectors,
     handleCardClick: (link, name) => {
       popupImageView.open(link, name);
     }
@@ -36,7 +36,7 @@ const userInfo = new UserInfo (selectors.profileName, selectors.profileDescripti
 const popupEditProfile = new PopupWithForm ( {
   popupSelector: selectors.popupEditProfile,
   submitForm: (elements) => {
-    userInfo.setUserInfo(elements[0].value, elements[1].value);
+    userInfo.setUserInfo(elements.name, elements.description);
 
     popupEditProfile.close();
 
@@ -48,12 +48,7 @@ popupEditProfile.setEventListeners();
 const popupAddCard = new PopupWithForm ( {
   popupSelector: selectors.popupAddCard,
   submitForm: (elements) => {
-    const card = {
-      name: elements[0].value,
-      link: elements[1].value
-    }
-
-    section.addItem(createCard(card));
+    section.addItem(createCard(popupAddCard._getInputValues()));
 
     popupAddCard.close();
 
@@ -62,15 +57,14 @@ const popupAddCard = new PopupWithForm ( {
 });
 popupAddCard.setEventListeners();
 
-const popupImageView = new PopupWithImage (selectors.popupImageView);
+const popupImageView = new PopupWithImage (selectors.popupImageView, selectors.popupImageLink, selectors.popupImageName);
 popupImageView.setEventListeners();
 
 
 
 buttonEdit.addEventListener('click', () => {
   const getUserInfo = userInfo.getUserInfo();
-  popupEditProfileNameInput.value = getUserInfo.name;
-  popupEditProfileDescriptionInput.value = getUserInfo.description;
+  popupEditProfile.setInputValues(getUserInfo);
 
   popupEditProfile.open();
 });
