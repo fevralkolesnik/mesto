@@ -1,4 +1,4 @@
-import '../pages/index.css'
+import './index.css'
 
 import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
@@ -48,7 +48,12 @@ popupEditProfile.setEventListeners();
 const popupAddCard = new PopupWithForm ( {
   popupSelector: selectors.popupAddCard,
   submitForm: (elements) => {
-    section.addItem(createCard(popupAddCard._getInputValues()));
+    const card = {
+      name: elements.name,
+      link: elements.link
+    }
+
+    section.addItem(createCard(card));
 
     popupAddCard.close();
 
