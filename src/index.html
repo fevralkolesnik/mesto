@@ -3,17 +3,16 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./pages/index.css">
     <title>Место</title>
   </head>
   <body class="page">
     <header class="header page__header">
-      <img class="header__logo" src="./images/logo.svg" alt="Лого">
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Лого">
     </header>
 
     <main class="content page__content">
       <section class="profile content__profile" aria-label="Профиль">
-        <img class="profile__avatar" src="./images/avatar.jpg" alt="Аватар пользователя">
+        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя">
         <div class="profile__info">
           <h1 class="profile__name">Жак-Ив Кусто</h1>
           <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
@@ -122,7 +121,5 @@
         <button class="element__delete-button" type="button" aria-label="Удалить карточку"></button>
       </article>
     </template>
-
-    <script src="./scripts/index.js" type="module"></script>
   </body>
 </html>
