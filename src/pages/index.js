@@ -12,19 +12,6 @@ import { PopupWithSubmit } from '../components/PopupWithSubmit.js';
 import { UserInfo } from '../components/UserInfo.js';
 import { Api } from '../components/Api.js';
 
-function handleWaiting (popupSelector, isWaiting) {
-  const popup = document.querySelector(popupSelector);
-  const button = popup.querySelector(selectors.submitButtonSelector);
-  if (isWaiting) {
-    button.textContent = `${button.textContent}...`;
-  }
-  else {
-    button.textContent = button.textContent.substr(0, button.textContent.length - 3);
-  }
-}
-
-
-
 function createCard (item) {
   const userID = userInfo.getId();
   const newCard = new Card({
@@ -32,10 +19,10 @@ function createCard (item) {
     selectors: selectors,
     userID: userID,
     handleButtonLike: (card) => {
-      if (!card._isMyLike()) {
+      if (!card.isMyLike()) {
         api.addLikeCard(item._id)
           .then ((data) => {
-            card._setLike(data.likes.length);
+            card.setLike(data.likes.length);
           })
           .catch (err => {
             console.log(`Произошла ошибка: ${err}`);
@@ -44,15 +31,15 @@ function createCard (item) {
       else {
         api.deleteLikeCard(item._id)
           .then ((data) => {
-            card._setLike(data.likes.length);
+            card.setLike(data.likes.length);
           })
           .catch (err => {
             console.log(`Произошла ошибка: ${err}`);
           });
       }
     },
-    handleButtonDelete: () => {
-      popupDeleteCard.open(item._id, newCard);
+    handleButtonDelete: (card) => {
+      popupDeleteCard.open(card, item._id);
     },
     handleCardClick: (link, name) => {
       popupImageView.open(link, name);
@@ -80,7 +67,7 @@ const userInfo = new UserInfo (selectors.profileName, selectors.profileDescripti
 const popupEditProfile = new PopupWithForm ( {
   popupSelector: selectors.popupEditProfile,
   submitForm: (newUserInfo) => {
-    handleWaiting(selectors.popupEditProfile, true);
+    popupEditProfile.handleWaiting(true);
     api.editUserInfo(newUserInfo)
       .then(data => {
         userInfo.setUserInfo(data);
@@ -93,7 +80,7 @@ const popupEditProfile = new PopupWithForm ( {
         console.log(`Произошла ошибка: ${err}`);
       })
       .finally (() => {
-        handleWaiting(selectors.popupEditProfile, false);
+        popupEditProfile.handleWaiting(false);
       })
   }
 });
@@ -102,7 +89,7 @@ popupEditProfile.setEventListeners();
 const popupAddCard = new PopupWithForm ( {
   popupSelector: selectors.popupAddCard,
   submitForm: (card) => {
-    handleWaiting(selectors.popupAddCard, true);
+    popupAddCard.handleWaiting(true);
     api.addNewCard(card)
       .then (data => {
         section.addItem(createCard(data));
@@ -115,7 +102,7 @@ const popupAddCard = new PopupWithForm ( {
         console.log(`Произошла ошибка: ${err}`);
       })
       .finally(() => {
-        handleWaiting(selectors.popupAddCard, false);
+        popupAddCard.handleWaiting(false);
       })
   }
 });
@@ -124,7 +111,7 @@ popupAddCard.setEventListeners();
 const popupSetAvatar = new PopupWithForm ( {
   popupSelector: selectors.popupSetAvatar,
   submitForm: (avatar) => {
-    handleWaiting(selectors.popupSetAvatar, true);
+    popupSetAvatar.handleWaiting(true);
     api.setAvatar(avatar)
       .then (data => {
         userInfo.setAvatar (avatar.link);
@@ -137,7 +124,7 @@ const popupSetAvatar = new PopupWithForm ( {
         console.log(`Произошла ошибка: ${err}`);
       })
       .finally(() => {
-        handleWaiting(selectors.popupSetAvatar, false);
+        popupSetAvatar.handleWaiting(false);
       })
   }
 });
@@ -145,19 +132,15 @@ popupSetAvatar.setEventListeners();
 
 const popupDeleteCard = new PopupWithSubmit ( {
   popupSelector: selectors.popupDeleteCard,
-  submitForm: (cardId, cardNode) => {
-    handleWaiting(selectors.popupDeleteCard, true);
-    api.deleteCard(cardId)
+  submitForm: (card, cardID) => {
+    api.deleteCard(cardID)
       .then (() => {
-        cardNode.remove();
-        cardNode = null
+        card.deleteCard();
+
         popupDeleteCard.close();
       })
       .catch (err => {
         console.log(`Произошла ошибка: ${err}`);
-      })
-      .finally(() => {
-        handleWaiting(selectors.popupDeleteCard, false);
       })
   }
 });
@@ -195,23 +178,16 @@ const api = new Api ({
   }
 });
 
-api.getUserInfo()
-  .then(data => {
-    userInfo.setUserInfo(data);
-    userInfo.setAvatar(data.avatar);
-  })
-  .catch(err => {
-    console.log(`Произошла ошибка: ${err}`);
-  });
+Promise.all([api.getUserInfo(), api.getAllCards()])
+  .then ((data) => {
+    userInfo.setUserInfo(data[0]);
+    userInfo.setAvatar(data[0].avatar);
 
-api.getAllCards()
-  .then (data => {
-    section.renderItems(data);
+    section.renderItems(data[1]);
   })
   .catch (err => {
     console.log(`Произошла ошибка: ${err}`);
   });
-
 
 
 

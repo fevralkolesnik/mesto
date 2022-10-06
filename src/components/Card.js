@@ -31,15 +31,14 @@ export class Card {
     this._countLikes.textContent = count;
   }
 
-  _setLike(count) {
+  setLike(count) {
     this._switchLikeIcon();
     this._countOfLikes (count);
   }
 
-  _isMyLike() {
+  isMyLike() {
     return this._isLiked;
   }
-
 
   _checkLikes() {
     for (let i = 0; i < this._likes.length; i++) {
@@ -61,10 +60,15 @@ export class Card {
     this._buttonLike.addEventListener('click', () => this._handleButtonLike(this));
 
     this._buttonDelete = this._card.querySelector(this._selectors.cardButtonDelete);
-    this._buttonDelete.addEventListener('click', () => this._handleButtonDelete());
+    this._buttonDelete.addEventListener('click', () => this._handleButtonDelete(this));
 
     this._cardImage = this._card.querySelector(this._selectors.cardImage);
     this._cardImage.addEventListener('click', () => this._handleCardClick(this._link, this._name));
+  }
+
+  deleteCard() {
+    this._card.remove();
+    this._card = null;
   }
 
   generateCard() {
