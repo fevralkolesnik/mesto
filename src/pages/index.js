@@ -4,7 +4,7 @@ import {Card} from '../components/Card.js';
 import {FormValidator} from '../components/FormValidator.js';
 import {selectors,
   popupFormEditProfile, popupFormAddCard, popupFormSetAvatar,
-  userAvatar, userImage, buttonEdit, buttonAddCard } from '../components/constants.js';
+  userAvatar, buttonEdit, buttonAddCard } from '../components/constants.js';
 import { Section } from '../components/Section.js';
 import { PopupWithImage } from '../components/PopupWithImage.js';
 import { PopupWithForm } from '../components/PopupWithForm.js';
@@ -169,8 +169,7 @@ popupImageView.setEventListeners();
 
 
 buttonEdit.addEventListener('click', () => {
-  const getUserInfo = userInfo.getUserInfo();
-  popupEditProfile.setInputValues(getUserInfo);
+  popupEditProfile.setInputValues(userInfo.getUserInfo());
 
   popupEditProfile.open();
 });

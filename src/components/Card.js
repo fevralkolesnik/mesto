@@ -2,7 +2,6 @@ export class Card {
   constructor({card, selectors, userID, handleButtonLike, handleButtonDelete, handleCardClick}) {
     this._name = card.name;
     this._link = card.link;
-    this._cardID = card._id;
     this._likes = card.likes;
     this._isLiked = false;
     this._selectors = selectors;
@@ -21,21 +20,6 @@ export class Card {
       .cloneNode(true);
 
     return cardElement;
-  }
-
-  _renderDeleteButton() {
-    if (this._userID !== this._ownerID) {
-      this._buttonDelete.classList.add(this._selectors.cardButtonDeleteDisabled);
-      this._buttonDelete.setAttribute('disabled', 'true');
-    }
-  }
-
-  _checkLikes() {
-    for (let i = 0; i < this._likes.length; i++) {
-      if (this._likes[i]._id === this._userID) {
-        this._switchLikeIcon();
-      }
-    }
   }
 
   _switchLikeIcon () {
@@ -57,6 +41,20 @@ export class Card {
   }
 
 
+  _checkLikes() {
+    for (let i = 0; i < this._likes.length; i++) {
+      if (this._likes[i]._id === this._userID) {
+        this._switchLikeIcon();
+      }
+    }
+  }
+
+  _renderDeleteButton() {
+    if (this._userID !== this._ownerID) {
+      this._buttonDelete.classList.add(this._selectors.cardButtonDeleteDisabled);
+      this._buttonDelete.setAttribute('disabled', 'true');
+    }
+  }
 
   _setEventListeners() {
     this._buttonLike = this._card.querySelector(this._selectors.cardButtonLike);
