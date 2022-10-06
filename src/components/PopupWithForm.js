@@ -34,14 +34,12 @@ export class PopupWithForm extends Popup {
       const elementsForm = this._getInputValues();
 
       this._submitForm (elementsForm);
-
-
     });
   }
 
   close() {
     super.close();
 
-    this._form.reset();
+    setTimeout(() => this._form.reset(), 1000);
   }
 }

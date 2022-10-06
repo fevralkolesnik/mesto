@@ -12,12 +12,14 @@
 
     <main class="content page__content">
       <section class="profile content__profile" aria-label="Профиль">
-        <img class="profile__avatar" src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя">
+        <div class="profile__avatar">
+          <img class="profile__image" src="<%=require('./images/avatar.jpg')%>" alt="Аватар пользователя">
+        </div>
         <div class="profile__info">
-          <h1 class="profile__name">Жак-Ив Кусто</h1>
+          <h1 class="profile__name"></h1>
           <button class="profile__edit-button" type="button" aria-label="Редактировать профиль"></button>
         </div>
-        <p class="profile__description">Исследователь океана</p>
+        <p class="profile__description"></p>
         <button class="profile__add-button" type="button" aria-label="Добавить публикацию"></button>
       </section>
 
@@ -109,6 +111,39 @@
       </div>
     </div>
 
+    <div class="popup popup_type_delete-card">
+      <div class="popup__container">
+        <button class="popup__close-button popup__close-button_type_add-card" type="button" aria-label="Закрыть окно удаления карточки"></button>
+        <h3 class="popup__title">Вы уверены?</h3>
+        <form class="popup__form popup__form_type_delete-card" name="delete-card">
+          <button class="popup__submit-button" type="submit" aria-label="Удалить карточку">Да</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup_type_set-avatar">
+      <div class="popup__container">
+        <button class="popup__close-button popup__close-button_type_set-avatar" type="button" aria-label="Закрыть окно изменения аватара"></button>
+        <h3 class="popup__title">Обновить аватар</h3>
+        <form class="popup__form popup__form_type_set-avatar" name="set-form" >
+
+          <label class="popup__form-field">
+            <input
+            class="popup__input popup__input_type_avatar"
+            type="url"
+            id="profileAvatar"
+            name="link"
+            placeholder="Ссылка на картинку"
+            required>
+            <span class="popup__input-error profileAvatar-error"></span>
+          </label>
+
+          <button class="popup__submit-button" type="submit" aria-label="Отправить новый аввтар">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+
     <template id="template-element">
       <article class="element">
         <div class="element__square">
@@ -116,7 +151,10 @@
         </div>
         <div class="element__info">
           <h2 class="element__name"></h2>
-          <button class="element__like" aria-label="Мне нравится" type="button"></button>
+          <div class="element__stat">
+            <button class="element__like" aria-label="Мне нравится" type="button"></button>
+            <p class="element__count-likes"></p>
+          </div>
         </div>
         <button class="element__delete-button" type="button" aria-label="Удалить карточку"></button>
       </article>

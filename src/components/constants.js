@@ -1,35 +1,10 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const selectors = {
   content: '.content',
   popup: '.popup',
   profileName: '.profile__name',
   profileDescription: '.profile__description',
+  profileAvatar: '.profile__avatar',
+  profileImage: '.profile__image',
   buttonEdit: '.profile__edit-button',
   popupEditProfile: '.popup_type_edit-profile',
   popupFormEditProfile: '.popup__form_type_edit-profile',
@@ -43,6 +18,11 @@ const selectors = {
   popupImageView: '.popup_type_image-view',
   popupImageLink: '.popup__image',
   popupImageName: '.popup__image-name',
+  popupDeleteCard: '.popup_type_delete-card',
+  popupFormDeleteCard: '.popup__form_type_delete-card',
+  popupSetAvatar: '.popup_type_set-avatar',
+  popupFormSetAvatar: '.popup__form_type_set-avatar',
+  popupSetAvatarLink: '.popup__input_type_avatar',
   popupCloseButton: 'popup__close-button',
   popupSubmitButton: '.popup__submit-button',
   cardsConteiner: '.elements',
@@ -51,7 +31,9 @@ const selectors = {
   cardName: '.element__name',
   cardImage: '.element__image',
   cardButtonLike: '.element__like',
+  cardCountLikes: '.element__count-likes',
   cardButtonDelete: '.element__delete-button',
+  cardButtonDeleteDisabled: 'element__delete-button_disabled',
 
   Esc: 'Escape',
 
@@ -83,10 +65,14 @@ const popupImageView = document.querySelector(selectors.popupImageView);
 const popupImageLink = popupImageView.querySelector(selectors.popupImageLink);
 const popupImageName = popupImageView.querySelector(selectors.popupImageName);
 
+const popupFormSetAvatar = document.querySelector(selectors.popupFormSetAvatar);
+const userImage = document.querySelector(selectors.profileImage);
+const userAvatar = document.querySelector(selectors.profileAvatar);
+
 const cardsConteiner = document.querySelector(selectors.cardsConteiner);
 
-export {initialCards, selectors,
+export {selectors,
   profileName, profileDescription,
   buttonEdit, popupEditProfile, popupFormEditProfile, popupEditProfileNameInput, popupEditProfileDescriptionInput,
   buttonAddCard, popupAddCard, popupFormAddCard, popupAddCardNameInput, popupAddCardLinkInput,
-  popupImageView, popupImageLink, popupImageName, cardsConteiner};
+  popupImageView, popupImageLink, popupImageName, cardsConteiner, userAvatar, popupFormSetAvatar, userImage};
